@@ -45,8 +45,14 @@ async fn main() {
                 .handle_error(|_| async { "Erreur lors du chargement du fichier" })
         );
 
-    // 👉 Adresse du serveur
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    // 👉 Railway fournit le port via la variable d'environnement PORT
+    let port = std::env::var("PORT")
+        .unwrap_or_else(|_| "3000".to_string())
+        .parse::<u16>()
+        .unwrap();
+
+    // 👉 0.0.0.0 = accepte les connexions externes (obligatoire pour Railway)
+    let addr = SocketAddr::from(([0, 0, 0, 0], port));
     println!("Serveur lancé sur http://{}", addr);
 
     // 👉 Listener + lancement du serveur
@@ -66,6 +72,7 @@ fn jours_restants(date_voyage: NaiveDate) -> i64 {
     let difference = date_voyage - aujourd_hui;
     difference.num_days()
 }
+
 
 
 
