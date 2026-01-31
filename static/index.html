@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Compte à rebours voyage</title>
+</head>
+<body>
+    <h1>Compte à rebours</h1>
+
+    <img src="YouCut_20260131_141053266.gif" alt="Animation" style="width: 300px;">
+
+    <p id="resultat">Chargement...</p>
+
+    <script>
+        fetch("/jours")
+            .then(r => r.text())
+            .then(t => document.getElementById("resultat").textContent = t);
+    </script>
+</body>
+</html>
+
